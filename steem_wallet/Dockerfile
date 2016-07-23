@@ -10,15 +10,15 @@ RUN cd /root ;\
       ( \
         git checkout v0.12.0 &&\
         git submodule update --init --recursive &&\
-        cmake -DENABLE_CONTENT_PATCHING=OFF -DLOW_MEMORY_NODE=ON CMakeLists.txt &&\
+        cmake -DENABLE_CONTENT_PATCHING=OFF CMakeLists.txt &&\
         make install \
       ) \
     )
 
 RUN rm -Rf /root/steem
 
-RUN mkdir -p /witness_node_data_dir
-
+RUN wget http://www.steemitup.eu/witness_node_data_dir.tar.gz
+RUN tar xvf witness_node_data_dir.tar.gz
 ADD config.ini /witness_node_data_dir
 
 EXPOSE 2001 8090
